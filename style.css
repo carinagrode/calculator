@@ -8,7 +8,40 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 16px;
     height: 100vh;
+}
+
+#display {
+    background-color: rgb(0, 255, 0);
+}
+
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 350px;
+}
+
+button {
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 34px;
+    width: 80px;
+    height: 80px;
+}
+
+
+.digit {
+    background-color: rgb(255, 0, 130);
+}
+
+.operation {
+    background-color: rgb(0, 255, 0);
+}
+
+#clear {
+    font-size: 28px;
 }
