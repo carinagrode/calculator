@@ -25,17 +25,15 @@ function displayNumber(number) {
     display.textContent += number;
     displayValue.push(number);
     currentNumber = parseFloat(displayValue.join(''));
-    if (operator && secondNumber === undefined) {
+    if (operator === undefined) {
         firstNumber = currentNumber;
-    } else if (operator && secondNumber !== undefined) {
+    } else {
         secondNumber = currentNumber;
     }
 }
 
 function storeAdd() {
     operator = '+';
-    firstNumber = currentNumber;
-    secondNumber = undefined;
     display.textContent = '';
     displayValue.length = 0;
 
@@ -43,24 +41,18 @@ function storeAdd() {
 
 function storeSubtract() {
     operator = '-';
-    firstNumber = currentNumber;
-    secondNumber = undefined;
     display.textContent = '';
     displayValue.length = 0;
 }
 
 function storeMultiply() {
     operator = '*';
-    firstNumber = currentNumber;
-    secondNumber = undefined;
     display.textContent = '';
     displayValue.length = 0;
 }
 
 function storeDivide() {
     operator = '/';
-    firstNumber = currentNumber;
-    secondNumber = undefined;
     display.textContent = '';
     displayValue.length = 0;
 }
