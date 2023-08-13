@@ -22,38 +22,42 @@ function operate(operator, a, b) {
 }
 
 function displayNumber(number) {
-    display.textContent += number;
+
+    if (display.textContent === '0') {
+        display.textContent = '';
+        display.textContent += number;
+    } else {
+        display.textContent += number;
+    }
+    
     displayValue.push(number);
     currentNumber = parseFloat(displayValue.join(''));
     if (operator === undefined) {
         firstNumber = currentNumber;
     } else {
+        display.textContent = '';
+        display.textContent = currentNumber;
         secondNumber = currentNumber;
     }
 }
 
 function storeAdd() {
     operator = '+';
-    display.textContent = '';
     displayValue.length = 0;
-
 }
 
 function storeSubtract() {
     operator = '-';
-    display.textContent = '';
     displayValue.length = 0;
 }
 
 function storeMultiply() {
     operator = '*';
-    display.textContent = '';
     displayValue.length = 0;
 }
 
 function storeDivide() {
     operator = '/';
-    display.textContent = '';
     displayValue.length = 0;
 }
 
@@ -71,15 +75,13 @@ function showResult() {
 }
 
 function clearDisplay() {
-    display.textContent = '';
+    display.textContent = '0';
     displayValue.length = 0;
     currentNumber = 0;
     operator = undefined;
     firstNumber = undefined;
     secondNumber = undefined;
 }
-
-
 
 const button0 = document.getElementById('number0');
 const button1 = document.getElementById('number1');
@@ -121,50 +123,3 @@ buttonMultiply.addEventListener('click', storeMultiply);
 buttonDivide.addEventListener('click', storeDivide);
 buttonEquals.addEventListener('click', showResult);
 buttonClear.addEventListener('click', clearDisplay);
-
-
-
-
-
-
-
-
-
-// window.addEventListener('load', () => display.textContent = '000');
-
-// let displayValue = 0;
-
-// function displayNumber(num) {
-//     display.textContent += num;
-//     displayValue = display.textContent;
-//     return displayValue;
-// }
-
-// let currentValue = displayValue;
-// let nextNumber
-
-
-// function operateNumber(operation) {
-
-//     function displayNumber(num) {
-
-//         display.textContent += num;
-//         displayValue = display.textContent;
-//         return displayValue;
-//     }
-
-
-
-
-
-
-//     // erste Nummer soll weiter angezeigt werden
-//     // wenn ich auf eine zahl klicke, soll diese zahl angezeigt werden und einen zweiten value b bilden
-//     // wenn ich auf noch eine zahl klicke, soll b die zahl dazubekommen und auch angezeigt werden
-//     // die operate function soll mit dieser 2. Zahl einen neuen displayValue errechnen
-// }
-
-// function showResult() {
-//     // show current displayValue in textContent
-// }
-
