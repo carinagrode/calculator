@@ -49,11 +49,15 @@ button {
 }
 
 .digit:hover {
-    background-color: rgb(255, 0, 130, 50);
+    background-color: rgb(225, 0, 130);
 }
 
 .operation {
     background-color: rgb(0, 255, 0);
+}
+
+.operation:hover {
+    background-color: rgb(0, 225, 0);
 }
 
 #clear {
