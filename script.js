@@ -41,6 +41,20 @@ function displayNumber(number) {
     }
 }
 
+function deleteLastDigit() {
+    displayValue.pop();
+    currentNumber = parseFloat(displayValue.join(''));
+    if (operator === undefined) {
+        display.textContent = '';
+        display.textContent = currentNumber;
+        firstNumber = currentNumber;
+    } else {
+        display.textContent = '';
+        display.textContent = currentNumber;
+        secondNumber = currentNumber;
+    }
+}
+
 function storeAdd() {
     operator = '+';
     displayValue.length = 0;
@@ -99,6 +113,7 @@ const buttonMultiply = document.getElementById('multiply');
 const buttonDivide = document.getElementById('divide');
 const buttonEquals = document.getElementById('equals');
 const buttonClear = document.getElementById('clear');
+const buttonBackspace = document.getElementById('backspace');
 const display = document.getElementById('display');
 
 const displayValue = [];
@@ -123,3 +138,4 @@ buttonMultiply.addEventListener('click', storeMultiply);
 buttonDivide.addEventListener('click', storeDivide);
 buttonEquals.addEventListener('click', showResult);
 buttonClear.addEventListener('click', clearDisplay);
+buttonBackspace.addEventListener('click', deleteLastDigit);
