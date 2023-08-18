@@ -41,6 +41,10 @@ function deleteLastDigit() {
     newNumberArray = numberArray;
     currentNumber = newNumberArray.join('');
     display.textContent = currentNumber;
+
+    if (operator !== undefined) {
+        currentNumber = operate(operator, +firstNumber,+currentNumber);
+    }
 }
 
 function saveResult() {
