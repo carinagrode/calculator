@@ -1,3 +1,8 @@
+// Next:
+// Nummer soll kurz aufblinken, wenn ich sie nochmal drücke
+// Nummer darf nicht zu lang werden
+// Float numbers
+
 function add(a, b) {
     return a + b;
 }
@@ -21,80 +26,59 @@ function operate(operator, a, b) {
     if (operator === '/') return divide(a, b);
 }
 
-function displayNumber(number) {
+function storeNumber(number) {
+    numberArray.push(number);
+    currentNumber = numberArray.join('');
+    display.textContent = currentNumber;
 
-    if (display.textContent === '0') {
-        display.textContent = '';
-        display.textContent += number;
-    } else {
-        display.textContent += number;
-    }
-    
-    displayValue.push(number);
-    currentNumber = parseFloat(displayValue.join(''));
-    if (operator === undefined) {
-        firstNumber = currentNumber;
-    } else {
-        display.textContent = '';
-        display.textContent = currentNumber;
-        secondNumber = currentNumber;
+    if (operator !== undefined) {
+        currentNumber = operate(operator, +firstNumber,+currentNumber);
     }
 }
 
 function deleteLastDigit() {
-    displayValue.pop();
-    currentNumber = parseFloat(displayValue.join(''));
-    if (operator === undefined) {
-        display.textContent = '';
-        display.textContent = currentNumber;
-        firstNumber = currentNumber;
-    } else {
-        display.textContent = '';
-        display.textContent = currentNumber;
-        secondNumber = currentNumber;
-    }
+    numberArray.pop();
+    newNumberArray = numberArray;
+    currentNumber = newNumberArray.join('');
+    display.textContent = currentNumber;
+}
+
+function saveResult() {
+    firstNumber = currentNumber;
+    display.textContent = firstNumber;
+    numberArray = [];
 }
 
 function storeAdd() {
     operator = '+';
-    displayValue.length = 0;
+    saveResult();
 }
 
 function storeSubtract() {
     operator = '-';
-    displayValue.length = 0;
+    saveResult();
 }
 
 function storeMultiply() {
     operator = '*';
-    displayValue.length = 0;
+    saveResult();;
 }
 
 function storeDivide() {
     operator = '/';
-    displayValue.length = 0;
+    saveResult();
 }
 
 function showResult() {
-    if (operator && secondNumber) {
-        const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
-        display.textContent = result;
-        displayValue.length = 0;
-        displayValue.push(result);
-        currentNumber = result;
-        firstNumber = result;
-        operator = undefined;
-        secondNumber = undefined;
-    }
+    display.textContent = currentNumber;
 }
 
 function clearDisplay() {
     display.textContent = '0';
-    displayValue.length = 0;
+    numberArray = [];
     currentNumber = 0;
     operator = undefined;
     firstNumber = undefined;
-    secondNumber = undefined;
 }
 
 const button0 = document.getElementById('number0');
@@ -116,22 +100,23 @@ const buttonClear = document.getElementById('clear');
 const buttonBackspace = document.getElementById('backspace');
 const display = document.getElementById('display');
 
-const displayValue = [];
+let numberArray = [];
+let newNumberArray = [];
+let currentNumber;
 let operator;
 let firstNumber;
-let secondNumber;
-let currentNumber = 0;
+let result;
 
-button0.addEventListener('click', () => displayNumber(0));
-button1.addEventListener('click', () => displayNumber(1));
-button2.addEventListener('click', () => displayNumber(2));
-button3.addEventListener('click', () => displayNumber(3));
-button4.addEventListener('click', () => displayNumber(4));
-button5.addEventListener('click', () => displayNumber(5));
-button6.addEventListener('click', () => displayNumber(6));
-button7.addEventListener('click', () => displayNumber(7));
-button8.addEventListener('click', () => displayNumber(8));
-button9.addEventListener('click', () => displayNumber(9));
+button0.addEventListener('click', () => storeNumber(0));
+button1.addEventListener('click', () => storeNumber(1));
+button2.addEventListener('click', () => storeNumber(2));
+button3.addEventListener('click', () => storeNumber(3));
+button4.addEventListener('click', () => storeNumber(4));
+button5.addEventListener('click', () => storeNumber(5));
+button6.addEventListener('click', () => storeNumber(6));
+button7.addEventListener('click', () => storeNumber(7));
+button8.addEventListener('click', () => storeNumber(8));
+button9.addEventListener('click', () => storeNumber(9));
 buttonAdd.addEventListener('click', storeAdd);
 buttonSubtract.addEventListener('click', storeSubtract);
 buttonMultiply.addEventListener('click', storeMultiply);
