@@ -27,6 +27,9 @@ function operate(operator, a, b) {
 }
 
 function storeNumber(number) {
+
+    if (display.textContent === '0' && number === 0) return;
+
     numberArray.push(number);
     currentNumber = numberArray.join('');
     display.textContent = currentNumber;
