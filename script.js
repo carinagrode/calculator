@@ -34,9 +34,18 @@ function storeNumber(number) {
     currentNumber = numberArray.join('');
     display.textContent = currentNumber;
 
-    if (operator !== undefined) {
+    if (operator === '/' && numberArray[0] === 0) {
+        showErrorMessage();
+    } else if (operator !== undefined) {
         currentNumber = operate(operator, +firstNumber,+currentNumber);
     }
+}
+
+function showErrorMessage() {
+    display.textContent = 'Sorry, no division by 0';
+    display.style.fontSize = '24px';
+    display.style.display = 'flex';
+    display.style.alignItems = 'center';
 }
 
 function deleteLastDigit() {
@@ -77,11 +86,19 @@ function storeDivide() {
 }
 
 function showResult() {
-    display.textContent = currentNumber;
+
+    if (operator === '/' && numberArray[0] === 0) {
+        showErrorMessage();
+    } else {
+        display.textContent = currentNumber;
+    }
 }
 
 function clearDisplay() {
     display.textContent = '0';
+    display.style.fontSize = '42px';
+    display.style.display = '';
+    display.style.textAlign = '';
     numberArray = [];
     currentNumber = 0;
     operator = undefined;
