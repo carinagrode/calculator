@@ -30,14 +30,18 @@ function storeNumber(number) {
 
     if (display.textContent === '0' && number === 0) return;
 
-    numberArray.push(number);
-    currentNumber = numberArray.join('');
-    display.textContent = currentNumber;
+    if (numberArray.length < 11) {
 
-    if (operator === '/' && numberArray[0] === 0) {
-        showErrorMessage();
-    } else if (operator !== undefined) {
-        currentNumber = operate(operator, +firstNumber,+currentNumber);
+        numberArray.push(number);
+        currentNumber = numberArray.join('');
+        display.textContent = currentNumber;
+
+        if (operator === '/' && numberArray[0] === 0) {
+            showErrorMessage();
+        } else if (operator !== undefined) {
+            currentNumber = operate(operator, +firstNumber,+currentNumber);
+        }
+
     }
 }
 
