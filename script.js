@@ -1,7 +1,8 @@
 // Next:
-// Nummer soll kurz aufblinken, wenn ich sie nochmal drücke
-// Nummer darf nicht zu lang werden
-// Float numbers
+// Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
+// bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
+// Nummer darf nicht zu lang werden - Result auf 11 Array-Stellen kürzen
+// Dezimalpoint soll nicht 2x gedrückt werden
 
 function add(a, b) {
     return a + b;
@@ -54,8 +55,7 @@ function showErrorMessage() {
 
 function deleteLastDigit() {
     numberArray.pop();
-    newNumberArray = numberArray;
-    currentNumber = newNumberArray.join('');
+    currentNumber = numberArray.join('');
     display.textContent = currentNumber;
 
     if (operator !== undefined) {
@@ -92,7 +92,12 @@ function storeDivide() {
 function showResult() {
 
     if (operator === '/' && numberArray[0] === 0) {
+        // Error message for division by 0
         showErrorMessage();
+    } else if (currentNumber % 1 !== 0) {
+        // Shorten floating point number so that it doesn't overflow the display
+        currentNumber = currentNumber.toFixed(9);
+        display.textContent = currentNumber;
     } else {
         display.textContent = currentNumber;
     }
@@ -119,6 +124,7 @@ const button6 = document.getElementById('number6');
 const button7 = document.getElementById('number7');
 const button8 = document.getElementById('number8');
 const button9 = document.getElementById('number9');
+const buttonDecimal = document.getElementById('decimal');
 const buttonAdd = document.getElementById('add');
 const buttonSubtract = document.getElementById('subtract');
 const buttonMultiply = document.getElementById('multiply');
@@ -129,11 +135,9 @@ const buttonBackspace = document.getElementById('backspace');
 const display = document.getElementById('display');
 
 let numberArray = [];
-let newNumberArray = [];
 let currentNumber;
 let operator;
 let firstNumber;
-let result;
 
 button0.addEventListener('click', () => storeNumber(0));
 button1.addEventListener('click', () => storeNumber(1));
@@ -145,6 +149,7 @@ button6.addEventListener('click', () => storeNumber(6));
 button7.addEventListener('click', () => storeNumber(7));
 button8.addEventListener('click', () => storeNumber(8));
 button9.addEventListener('click', () => storeNumber(9));
+buttonDecimal.addEventListener('click', () => storeNumber('.'));
 buttonAdd.addEventListener('click', storeAdd);
 buttonSubtract.addEventListener('click', storeSubtract);
 buttonMultiply.addEventListener('click', storeMultiply);
