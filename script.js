@@ -1,8 +1,6 @@
 // Next:
 // Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
 // bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
-// Nummer darf nicht zu lang werden - Result auf 11 Array-Stellen kürzen
-// Dezimalpoint soll nicht 2x gedrückt werden
 
 function add(a, b) {
     return a + b;
@@ -29,20 +27,27 @@ function operate(operator, a, b) {
 
 function storeNumber(number) {
 
+    // If there's a 0 in the display you can't add another 0
     if (display.textContent === '0' && number === 0) return;
 
+    // You can't have more than one decimal point in one number
+    if (numberArray.includes('.') && number === '.') return;
+    
+    // You can't type in more than 11 digits including decimal point
     if (numberArray.length < 11) {
 
+        // Display the entered numbers
         numberArray.push(number);
         currentNumber = numberArray.join('');
         display.textContent = currentNumber;
 
+        // Show an error message for division by 0
+        // Start the operation when there was already an operator entered
         if (operator === '/' && numberArray[0] === 0) {
             showErrorMessage();
         } else if (operator !== undefined) {
             currentNumber = operate(operator, +firstNumber,+currentNumber);
         }
-
     }
 }
 
