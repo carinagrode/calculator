@@ -1,6 +1,8 @@
 // Next:
 // Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
 // bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
+// Fix bug with decimal point: 9 - 6. = 
+//'1931.300000000 floatet immer noch über - und man kann die 0en wegkürzen
 
 function add(a, b) {
     return a + b;
@@ -34,8 +36,8 @@ function storeNumber(number) {
     if (numberArray.includes('.') && number === '.') return;
     
     // You can't type in more than 11 digits including decimal point
-    if (numberArray.length < 11) {
-
+    if (numberArray.length < 11) {           
+        
         // Display the entered numbers
         numberArray.push(number);
         currentNumber = numberArray.join('');
@@ -47,7 +49,7 @@ function storeNumber(number) {
             showErrorMessage();
         } else if (operator !== undefined) {
             currentNumber = operate(operator, +firstNumber,+currentNumber);
-        }
+        }        
     }
 }
 
@@ -101,11 +103,37 @@ function showResult() {
         showErrorMessage();
     } else if (currentNumber % 1 !== 0) {
         // Shorten floating point number so that it doesn't overflow the display
-        currentNumber = currentNumber.toFixed(9);
-        display.textContent = currentNumber;
+
+        // Ist doof, weil dann 8349.9987 auch overfloated
+        // currentNumber = currentNumber.toFixed(9);
+        // display.textContent = currentNumber;
+        // numberArray = [];
     } else {
+        
+        // Shorten integers so they doesn't overflow the display
+        numberArray = [];
+        numberArray.push(currentNumber);
+        let fullArray = [];
+        let roundedArray = [];
+        fullArray = numberArray[0].toString().split('').map(Number);
+
+        if (fullArray.length > 11 && fullArray[11] > 4) {
+
+            if (fullArray[10] === 9 && fullArray[11] > 4) {
+                fullArray[10] === 0;
+                fullArray[9]++
+            } else {
+                fullArray[10]++;
+            }
+        }
+
+        roundedArray = fullArray.slice(0, 11);
+        currentNumber = roundedArray.join('');
         display.textContent = currentNumber;
+        numberArray = [];
     }
+
+    
 }
 
 function clearDisplay() {
