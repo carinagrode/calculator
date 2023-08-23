@@ -1,7 +1,7 @@
 // Next:
 // Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
+// Da ist noch ein Bug, wenn ich nach = weitertippe
 // bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
-// Was ist mit negativen Dezimalzahlen?
 // am Ende alles zeigen und nach Clean Code fragen
 
 function add(a, b) {
@@ -114,15 +114,14 @@ function showResult() {
             }
 
             stringNumber = stringNumber.slice(0, 10) + roundedDigit;
-        }      
-        
-        // if (currentNumber % 1 !== 0) {
-        //     ...
-        // }
+        }
 
         currentNumber = parseFloat(stringNumber);
         display.textContent = currentNumber;
-    } 
+    }
+
+    // Wenn danach Zahl gedrückt wird, dann reset - wenn danach operation gedrückt wird - dann operate
+    resetCalculator();
 }
 
 function clearDisplay() {
@@ -130,6 +129,10 @@ function clearDisplay() {
     display.style.fontSize = '42px';
     display.style.display = '';
     display.style.textAlign = '';
+    resetCalculator();
+}
+
+function resetCalculator() {
     numberArray = [];
     currentNumber = 0;
     operator = undefined;
