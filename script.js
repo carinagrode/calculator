@@ -1,8 +1,8 @@
 // Next:
 // Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
 // bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
-// Fix bug with decimal point: 9 - 6. = 
-//'1931.300000000 floatet immer noch über - und man kann die 0en wegkürzen
+// Was ist mit negativen Dezimalzahlen?
+// am Ende alles zeigen und nach Clean Code fragen
 
 function add(a, b) {
     return a + b;
@@ -101,39 +101,28 @@ function showResult() {
     if (operator === '/' && numberArray[0] === 0) {
         // Error message for division by 0
         showErrorMessage();
-    } else if (currentNumber % 1 !== 0) {
-        // Shorten floating point number so that it doesn't overflow the display
-
-        // Ist doof, weil dann 8349.9987 auch overfloated
-        // currentNumber = currentNumber.toFixed(9);
-        // display.textContent = currentNumber;
-        // numberArray = [];
     } else {
-        
-        // Shorten integers so they doesn't overflow the display
-        numberArray = [];
-        numberArray.push(currentNumber);
-        let fullArray = [];
-        let roundedArray = [];
-        fullArray = numberArray[0].toString().split('').map(Number);
+        // Round & shorten floating point numbers & integers so they doesn't overflow the display
 
-        if (fullArray.length > 11 && fullArray[11] > 4) {
+        let stringNumber = currentNumber.toString();
 
-            if (fullArray[10] === 9 && fullArray[11] > 4) {
-                fullArray[10] === 0;
-                fullArray[9]++
-            } else {
-                fullArray[10]++;
+        if (stringNumber.length > 11) {
+            let roundedDigit = parseInt(stringNumber[10]);
+            let nextDigit = parseInt(stringNumber[11]);
+            if (nextDigit >= 5) {
+                roundedDigit++;
             }
-        }
 
-        roundedArray = fullArray.slice(0, 11);
-        currentNumber = roundedArray.join('');
+            stringNumber = stringNumber.slice(0, 10) + roundedDigit;
+        }      
+        
+        // if (currentNumber % 1 !== 0) {
+        //     ...
+        // }
+
+        currentNumber = parseFloat(stringNumber);
         display.textContent = currentNumber;
-        numberArray = [];
-    }
-
-    
+    } 
 }
 
 function clearDisplay() {
