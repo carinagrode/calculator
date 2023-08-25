@@ -118,18 +118,22 @@ function showResult() {
 
         currentNumber = parseFloat(stringNumber);
         display.textContent = currentNumber;
+
+        // numberArray = [];
+        // numberArray.push(currentNumber);
     }
 
-    // Wenn danach Zahl gedrückt wird, dann reset - wenn danach operation gedrückt wird - dann operate
-    resetCalculator();
+    // Wenn danach Zahl gedrückt wird, dann reset 
+    
+    
+    // - wenn danach operation gedrückt wird - dann operate < done
+    // resetCalculator();
 }
 
 function clearDisplay() {
     display.textContent = '0';
-    display.style.fontSize = '42px';
-    display.style.display = '';
-    display.style.textAlign = '';
     resetCalculator();
+    resetFontStyle();
 }
 
 function resetCalculator() {
@@ -137,6 +141,12 @@ function resetCalculator() {
     currentNumber = 0;
     operator = undefined;
     firstNumber = undefined;
+}
+
+function resetFontStyle() {
+    display.style.fontSize = '42px';
+    display.style.display = '';
+    display.style.textAlign = '';
 }
 
 const button0 = document.getElementById('number0');
