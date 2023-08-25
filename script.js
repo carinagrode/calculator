@@ -1,9 +1,8 @@
-// Next:
 // Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
-// Da ist noch ein Bug, wenn ich nach = weitertippe
 // bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
 // warum currentNumber = 0 und firstNumber = undefined?
 // am Ende alles zeigen und nach Clean Code fragen
+// Wenn ich Punkt drücke, will ich Null-Punkt
 
 function add(a, b) {
     return a + b;
@@ -30,6 +29,8 @@ function operate(operator, a, b) {
 
 function storeNumber(number) {
 
+    resetFontStyle();
+
     if (resultDisplayed) {
         resetCalculator();
         resultDisplayed = false;
@@ -51,11 +52,16 @@ function storeNumber(number) {
 
         // Show an error message for division by 0
         // Start the operation when there was already an operator entered
-        if (operator === '/' && numberArray[0] === 0) {
-            showErrorMessage();
-        } else if (operator !== undefined) {
+
+        if (operator !== undefined) {
             currentNumber = operate(operator, +firstNumber,+currentNumber);
-        }        
+        } 
+
+        // if (operator === '/' && numberArray[0] === 0) {
+        //     showErrorMessage();
+        // } else if (operator !== undefined) {
+        //     currentNumber = operate(operator, +firstNumber,+currentNumber);
+        // }        
     }
 }
 
@@ -108,9 +114,10 @@ function storeDivide() {
 
 function showResult() {
 
-    if (operator === '/' && numberArray[0] === 0) {
+    if (operator === '/' && numberArray.length === 1 && numberArray[0] === 0) {
         // Error message for division by 0
         showErrorMessage();
+        resetCalculator();
     } else {
         // Round & shorten integers so they doesn't overflow the display
 
