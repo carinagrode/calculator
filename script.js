@@ -2,7 +2,6 @@
 // bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
 // warum currentNumber = 0 und firstNumber = undefined?
 // am Ende alles zeigen und nach Clean Code fragen
-// Wenn ich Punkt drücke, will ich Null-Punkt
 
 function add(a, b) {
     return a + b;
@@ -43,25 +42,26 @@ function storeNumber(number) {
     if (numberArray.includes('.') && number === '.') return;
     
     // You can't type in more than 11 digits including decimal point
-    if (numberArray.length < 11) {           
-        
+    if (numberArray.length < 11) {        
+                
         // Display the entered numbers
         numberArray.push(number);
+
+        // If a decimal point is entered at the beginning, a 0 is put in front automatically
+        if (numberArray[0] === '.') {
+            numberArray = [];
+            numberArray.push(0, '.');
+        }
+
         currentNumber = numberArray.join('');
         display.textContent = currentNumber;
 
-        // Show an error message for division by 0
         // Start the operation when there was already an operator entered
 
         if (operator !== undefined) {
-            currentNumber = operate(operator, +firstNumber,+currentNumber);
+        currentNumber = operate(operator, +firstNumber,+currentNumber);
         } 
-
-        // if (operator === '/' && numberArray[0] === 0) {
-        //     showErrorMessage();
-        // } else if (operator !== undefined) {
-        //     currentNumber = operate(operator, +firstNumber,+currentNumber);
-        // }        
+       
     }
 }
 
