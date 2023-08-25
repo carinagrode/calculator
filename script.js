@@ -1,8 +1,3 @@
-// Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
-// bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
-// warum currentNumber = 0 und firstNumber = undefined?
-// am Ende alles zeigen und nach Clean Code fragen
-
 function add(a, b) {
     return a + b;
 }
@@ -57,7 +52,6 @@ function storeNumber(number) {
         display.textContent = currentNumber;
 
         // Start the operation when there was already an operator entered
-
         if (operator !== undefined) {
         currentNumber = operate(operator, +firstNumber,+currentNumber);
         } 
@@ -126,6 +120,7 @@ function showResult() {
         if (stringNumber.length > 11) {
             let roundedDigit = parseInt(stringNumber[10]);
             let nextDigit = parseInt(stringNumber[11]);
+            
             if (nextDigit >= 5) {
                 roundedDigit++;
             }
