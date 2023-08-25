@@ -112,7 +112,7 @@ function showResult() {
         // Error message for division by 0
         showErrorMessage();
     } else {
-        // Round & shorten floating point numbers & integers so they doesn't overflow the display
+        // Round & shorten integers so they doesn't overflow the display
 
         let stringNumber = currentNumber.toString();
 
@@ -127,9 +127,16 @@ function showResult() {
         }
 
         currentNumber = parseFloat(stringNumber);
+        currentNumber = roundToFixed(currentNumber, 10);
         display.textContent = currentNumber;
-        resultDisplayed = true;      
-    }
+        resultDisplayed = true;   
+    }   
+}
+
+// Fix the problem that 5.6 minus 5.2 should be 0.4 and not 0.39999999999999947
+function roundToFixed(number, decimalPlaces) {
+    const factor = 10 ** decimalPlaces;
+    return Math.round(number * factor) / factor;
 }
 
 function clearDisplay() {
