@@ -2,6 +2,7 @@
 // Nummer im Display soll kurz aufblinken, wenn ich sie nochmal drücke
 // Da ist noch ein Bug, wenn ich nach = weitertippe
 // bei der mobilen Version soll der Button kurz eine andere Farbe annehmen beim Tippen
+// warum currentNumber = 0 und firstNumber = undefined?
 // am Ende alles zeigen und nach Clean Code fragen
 
 function add(a, b) {
@@ -28,6 +29,11 @@ function operate(operator, a, b) {
 }
 
 function storeNumber(number) {
+
+    if (resultDisplayed) {
+        resetCalculator();
+        resultDisplayed = false;
+    }
 
     // If there's a 0 in the display you can't add another 0
     if (display.textContent === '0' && number === 0) return;
@@ -78,21 +84,25 @@ function saveResult() {
 
 function storeAdd() {
     operator = '+';
+    resultDisplayed = false;
     saveResult();
 }
 
 function storeSubtract() {
     operator = '-';
+    resultDisplayed = false;
     saveResult();
 }
 
 function storeMultiply() {
     operator = '*';
+    resultDisplayed = false;
     saveResult();;
 }
 
 function storeDivide() {
     operator = '/';
+    resultDisplayed = false;
     saveResult();
 }
 
@@ -118,16 +128,8 @@ function showResult() {
 
         currentNumber = parseFloat(stringNumber);
         display.textContent = currentNumber;
-
-        // numberArray = [];
-        // numberArray.push(currentNumber);
+        resultDisplayed = true;      
     }
-
-    // Wenn danach Zahl gedrückt wird, dann reset 
-    
-    
-    // - wenn danach operation gedrückt wird - dann operate < done
-    // resetCalculator();
 }
 
 function clearDisplay() {
@@ -173,6 +175,7 @@ let numberArray = [];
 let currentNumber;
 let operator;
 let firstNumber;
+let resultDisplayed = false;
 
 button0.addEventListener('click', () => storeNumber(0));
 button1.addEventListener('click', () => storeNumber(1));
